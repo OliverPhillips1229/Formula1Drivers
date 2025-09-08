@@ -1,3 +1,42 @@
+ .team-logos-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+    align-items: center;
+    margin: 32px 0 0 0;
+}
+@media (max-width: 900px) {
+    .team-logos-row {
+        gap: 18px;
+        flex-wrap: wrap;
+    }
+    .team-logo {
+        max-width: 140px;
+        max-height: 90px;
+        padding: 12px;
+    }
+}
+
+ .team-logo {
+  max-width: 170px;
+  max-height: 120px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 12px;
+}
+.logo-image img {
+    max-width: 220px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 16px auto;
+}
 main {
     display: flex;
     align-items: center;
