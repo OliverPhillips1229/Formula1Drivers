@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link
+  rel="stylesheet"
+  href="{% static 'css/drivers/driver-index.css' %}"
+/>
+{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <h1>Driver List</h1>
+  <img src="{% static 'images/Helmet-icon.png' %}" alt="Helmet icon" />
+  <img src="{% static 'images/Helmet-icon.png' %}" alt="Helmet icon" />
+  <img src="{% static 'images/Helmet-icon.png' %}" alt="Helmet icon" />
+  <img src="{% static 'images/Helmet-icon.png' %}" alt="Helmet icon" />
+</section>
+
+<section class="card-container">
+  {% for driver in drivers %}
+  <div class="card">
+    <div class="card-content">
+      <div class="card-img-container">
+        <img
+          src="{% static 'images/Helmet-icon.png' %}"
+          alt="{{ driver.name }}'s helmet"
+        />
+      </div>
+      <h2 class="card-title">{{ driver.name }}</h2>
+      <p>
+        Age {{ driver.age }} — racing for <strong>{{ driver.current_team }}</strong>
+      </p>
+      <p><em>{{ driver.drive_years }}</em></p>
+      <p><small>{{ driver.description }}</small></p>
+    </div>
+  </div>
+  {% endfor %}
+</section>
+{% endblock %}
