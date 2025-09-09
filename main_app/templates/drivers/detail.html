@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="driver-detail">
+  <h1>{{ driver.name }}</h1>
+  <img src="{% static 'images/Helmet-icon.png' %}" alt="{{ driver.name }}'s helmet" />
+  <p>Age: {{ driver.age }}</p>
+  <p>Current Team: <strong>{{ driver.current_team }}</strong></p>
+  <p>Drive Years: <em>{{ driver.drive_years }}</em></p>
+  <p>{{ driver.description }}</p>
+  <a href="/drivers/">Back to Driver List</a>
+</section>
+{% endblock %}

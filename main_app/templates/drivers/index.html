@@ -16,24 +16,26 @@
 
 <section class="card-container">
   {% for driver in drivers %}
-  <div class="card">
-    <div class="card-content card-flex">
-      <div class="card-img-container">
-        <img
-          src="{% static 'images/Helmet-icon.png' %}"
-          alt="{{ driver.name }}'s helmet"
-        />
-      </div>
-      <div class="card-text">
-        <h2 class="card-title">{{ driver.name }}</h2>
-        <p>
-          Age {{ driver.age }} — racing for <strong>{{ driver.current_team }}</strong>
-        </p>
-        <p><em>{{ driver.drive_years }}</em></p>
-        <p><small>{{ driver.description }}</small></p>
-      </div>
+    <div class="card">
+    <a href="{% url 'driver_detail' driver.id %}">
+        <div class="card-content card-flex">
+          <div class="card-img-container">
+            <img
+              src="{% static 'images/Helmet-icon.png' %}"
+              alt="{{ driver.name }}'s helmet"
+            />
+          </div>
+          <div class="card-text">
+            <h2 class="card-title">{{ driver.name }}</h2>
+            <p>
+              Age {{ driver.age }} — racing for <strong>{{ driver.current_team }}</strong>
+            </p>
+            <p><em>{{ driver.drive_years }}</em></p>
+            <p><small>{{ driver.description }}</small></p>
+          </div>
+        </div>
+      </a>
     </div>
-  </div>
   {% endfor %}
 </section>
 {% endblock %}
