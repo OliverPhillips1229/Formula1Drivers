@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}" />
+{% endblock %}
+
+{% block content %}
+<section class="form-section" style="display: flex; justify-content: center; align-items: flex-start; min-height: 60vh;">
+  <div class="form-card" style="background: #fff; padding: 2rem 2.5rem; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); min-width: 350px; max-width: 420px; width: 100%;">
+    <h1 style="margin-bottom: 1.5rem; text-align: center;">{% if form.instance.pk %}Edit Driver{% else %}Add Driver{% endif %}</h1>
+    <form method="post" style="display: flex; flex-direction: column; gap: 1.2rem;">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div style="display: flex; gap: 1rem; justify-content: flex-start; align-items: center; margin-top: 1rem;">
+        <button type="submit" class="btn" style="background: #e10600; color: #fff; border: none; padding: 0.6rem 1.4rem; border-radius: 6px; font-weight: 600; cursor: pointer;">Save</button>
+        <a href="{% url 'driver-index' %}" class="btn btn-secondary" style="color: #6c3483; text-decoration: underline; background: none; border: none; padding: 0.6rem 1.4rem; border-radius: 6px; font-weight: 600; cursor: pointer;">Cancel</a>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

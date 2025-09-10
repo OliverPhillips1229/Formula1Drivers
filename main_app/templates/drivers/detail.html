@@ -2,13 +2,15 @@
 {% load static %}
 
 {% block content %}
-<section class="driver-detail">
+<div class="driver-details">
   <h1>{{ driver.name }}</h1>
-  <img src="{% static 'images/Helmet-icon.png' %}" alt="{{ driver.name }}'s helmet" />
-  <p>Age: {{ driver.age }}</p>
-  <p>Current Team: <strong>{{ driver.current_team }}</strong></p>
-  <p>Drive Years: <em>{{ driver.drive_years }}</em></p>
+  <h2>Age {{ driver.age }} — <strong>{{ driver.current_team }}</strong></h2>
+  <p><em>{{ driver.drive_years }}</em></p>
   <p>{{ driver.description }}</p>
-  <a href="/drivers/">Back to Driver List</a>
-</section>
+
+  <div class="driver-actions">
+    <a href="{% url 'driver-update' driver.id %}" class="btn warn">Edit</a>
+    <a href="{% url 'driver-delete' driver.id %}" class="btn danger">Delete</a>
+  </div>
+</div>
 {% endblock %}
