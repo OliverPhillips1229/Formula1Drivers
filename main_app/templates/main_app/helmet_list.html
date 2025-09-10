@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/helmets/helmet-index.css' %}" />
+{% endblock %}
+{% block content %}
+<section class="page-header">
+  <h1>All Helmets <img src="{% static 'images/Helmet-icon.png' %}" alt="Helmet icon" class="helmet-img" /></h1>
+</section>
+
+<section class="card-container">
+  {% for helmet in helmet_list %}
+    <div class="card" style="border-color: {{ helmet.color }}">
+      <div class="card-bg" style="background-color: {{ helmet.color }}"></div>
+      <a href="{% url 'helmet-detail' helmet.id %}">
+        <div class="card-content">
+          <h2>{{ helmet.name }}</h2>
+          <p>A {{ helmet.color }} helmet</p>
+        </div>
+      </a>
+    </div>
+  {% empty %}
+    <p class="helmet-empty-message">No helmets yet — add one!</p>
+  {% endfor %}
+</section>
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Driver
+from .models import Driver, Helmet
 from .forms import ResultForm
 
 def home(request):
@@ -43,3 +44,21 @@ class DriverUpdate(UpdateView):
 class DriverDelete(DeleteView):
     model = Driver
     success_url = '/drivers/'
+    
+class HelmetCreate(CreateView):
+    model = Helmet
+    fields = '__all__'
+
+class HelmetList(ListView):
+    model = Helmet
+
+class HelmetDetail(DetailView):
+    model = Helmet
+
+class HelmetUpdate(UpdateView):
+    model = Helmet
+    fields = ['name', 'color']
+
+class HelmetDelete(DeleteView):
+    model = Helmet
+    success_url = '/helmets/'

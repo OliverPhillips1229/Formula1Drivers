@@ -14,4 +14,10 @@ urlpatterns = [
     path('drivers/<int:pk>/update/', views.DriverUpdate.as_view(), name='driver-update'),
     path('drivers/<int:pk>/delete/', views.DriverDelete.as_view(), name='driver-delete'),
     path('drivers/<int:driver_id>/add-result/', views.add_result, name='add-result'),
+
+    path('helmets/create/', views.HelmetCreate.as_view(), name='helmet-create'),
+    path('helmets/<int:pk>/', views.HelmetDetail.as_view(), name='helmet-detail'),
+    path('helmets/', views.HelmetList.as_view(), name='helmet-index'),
+    path('helmets/<int:pk>/update/', views.HelmetUpdate.as_view(), name='helmet-update'),
+    path('helmets/<int:pk>/delete/', views.HelmetDelete.as_view(), name='helmet-delete'),
 ]
