@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="page-header">
+<div class="page-header" style="text-align: center;">
   <h1>Delete Helmet?</h1>
-  <img src="{% static 'images/Helmet-icon.png' %}" alt="Helmet icon" />
+  {% if object.image %}
+    <img src="{{ object.image.url }}" alt="{{ object.name }} helmet" style="width: 220px; height: auto; margin: 24px auto 16px auto; display: block; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.12);" />
+  {% else %}
+    <img src="{% static 'images/Helmet-icon.png' %}" alt="Helmet icon" style="width: 220px; height: auto; margin: 24px auto 16px auto; display: block;" />
+  {% endif %}
 </div>
-<h2>Are you sure you want to delete {{ object.name }}?</h2>
-<form action="" method="post" class="form">
+<h2 style="text-align: center; margin-top: 32px;">Are you sure you want to delete {{ object.name }}?</h2>
+<form action="" method="post" class="form" style="display: flex; justify-content: center; gap: 16px; margin-top: 24px;">
   {% csrf_token %}
-  <a href="{% url 'helmet-detail' object.id %}" class="btn secondary">Cancel</a>
+  <a href="{% url 'helmet-detail' object.id %}" class="btn secondary" style="padding: 8px 22px; border-radius: 8px; background: #e0e0e0; color: #333; font-weight: 500; text-decoration: none; border: none; box-shadow: 0 1px 4px rgba(0,0,0,0.10); transition: background 0.2s;">Cancel</a>
   <button type="submit" class="btn danger">Yes - Delete!</button>
 </form>
 {% endblock %}

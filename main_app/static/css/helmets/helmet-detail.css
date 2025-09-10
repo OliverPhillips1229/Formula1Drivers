@@ -74,3 +74,41 @@ main {
 
 .card h2 { margin: 7px 0; font-size: var(--font-xl); z-index: 1; }
 .card p  { margin: 0;   font-size: var(--font-reg); z-index: 1; }
+
+/* Edit and Delete button styles for helmet detail */
+.helmet-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  align-self: flex-end;
+  z-index: 2;
+}
+.edit-btn, .delete-btn {
+  padding: 6px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+  margin-top: 8px;
+  text-decoration: none;
+  display: inline-block;
+}
+.edit-btn {
+  background: #1976d2;
+  color: #fff;
+}
+.edit-btn:hover {
+  background: #1565c0;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+}
+.delete-btn {
+  background: #d32f2f;
+  color: #fff;
+}
+.delete-btn:hover {
+  background: #b71c1c;
+  box-shadow: 0 2px 8px rgba(211, 47, 47, 0.15);
+}

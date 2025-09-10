@@ -1,3 +1,32 @@
+.edit-btn, .delete-btn {
+  padding: 6px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+  margin-top: 8px;
+  text-decoration: none;
+  display: inline-block;
+}
+.edit-btn {
+  background: #1976d2;
+  color: #fff;
+}
+.edit-btn:hover {
+  background: #1565c0;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+}
+.delete-btn {
+  background: #d32f2f;
+  color: #fff;
+}
+.delete-btn:hover {
+  background: #b71c1c;
+  box-shadow: 0 2px 8px rgba(211, 47, 47, 0.15);
+}
 /* Style for empty message on All Helmets page */
 .helmet-empty-message {
   display: block;
@@ -46,19 +75,28 @@
   display: inline-block;
   margin-left: 8px;
 }
-main {
+
+.card-container {
   display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
   justify-content: flex-start;
-  min-height: auto;
+  align-items: flex-start;
+  margin-left: 40px;
 }
 
 .card {
-  width: 224px;
-  height: 224px;
-  margin: 25px 25px 15px 40px;
+  width: 340px;
+  min-height: 420px;
+  margin: 32px 32px 24px 48px;
   border: solid 2px;
   box-shadow: var(--card-box-shadow);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 24px 24px 24px;
+  background: #fff;
 }
 
 .card-bg {
@@ -69,14 +107,85 @@ main {
 }
 
 .card-content {
-  padding: 15px;
-  height: 100%; width: 100%;
+  width: 100%;
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   color: var(--text-color);
+  position: relative;
+  margin-top: 16px;
 }
 
-.card h2 { margin: 7px 0; font-size: var(--font-xl); z-index: 1; }
-.card p  { margin: 0;   font-size: var(--font-reg); z-index: 1; }
+.card h2 {
+  margin: 18px 0 8px 0;
+  font-size: var(--font-xl);
+  z-index: 1;
+  text-align: center;
+}
+.card p {
+  margin: 0 0 12px 0;
+  font-size: var(--font-reg);
+  z-index: 1;
+  text-align: center;
+}
+/* Edit and Delete button styles for helmet index */
+.helmet-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 18px;
+  justify-content: center;
+  width: 100%;
+  z-index: 2;
+}
+.edit-btn, .delete-btn {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.edit-btn {
+  background: #1976d2;
+  color: #fff;
+}
+.edit-btn:hover {
+  background: #1565c0;
+}
+.delete-btn {
+  background: #d32f2f;
+  color: #fff;
+}
+.delete-btn:hover {
+  background: #b71c1c;
+}
+/* Edit and Delete button styles for helmet index */
+.helmet-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.edit-btn, .delete-btn {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.edit-btn {
+  background: #1976d2;
+  color: #fff;
+}
+.edit-btn:hover {
+  background: #1565c0;
+}
+.delete-btn {
+  background: #d32f2f;
+  color: #fff;
+}
+.delete-btn:hover {
+  background: #b71c1c;
+}

@@ -118,6 +118,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Media files (user-uploaded images)
+MEDIA_URL = '/media/'
+from pathlib import Path
+MEDIA_ROOT = Path(BASE_DIR) / 'media'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 

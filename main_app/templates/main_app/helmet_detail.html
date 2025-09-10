@@ -9,8 +9,10 @@
   <div class="card-content">
     <h2>{{ helmet.name }}</h2>
     <p>A {{ helmet.color }} helmet</p>
+      <div class="helmet-actions">
+        <a href="{% url 'helmet-update' helmet.id %}" class="edit-btn">Edit</a>
+        <a href="{% url 'helmet-delete' helmet.id %}" class="delete-btn">Delete</a>
+      </div>
   </div>
 </div>
-<a href="{% url 'helmet-update' helmet.id %}" class="btn warn">Edit</a>
-<a href="{% url 'helmet-delete' helmet.id %}" class="btn danger">Delete</a>
 {% endblock %}

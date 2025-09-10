@@ -12,12 +12,17 @@
   {% for helmet in helmet_list %}
     <div class="card" style="border-color: {{ helmet.color }}">
       <div class="card-bg" style="background-color: {{ helmet.color }}"></div>
-      <a href="{% url 'helmet-detail' helmet.id %}">
-        <div class="card-content">
-          <h2>{{ helmet.name }}</h2>
-          <p>A {{ helmet.color }} helmet</p>
+      {% if helmet.image %}
+        <img src="{{ helmet.image.url }}" alt="{{ helmet.name }} helmet" style="width: 120px; height: auto; margin: 16px auto 0 auto; display: block; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.12);" />
+      {% endif %}
+      <div class="card-content">
+        <h2>{{ helmet.name }}</h2>
+        <p>A {{ helmet.color }} helmet</p>
+        <div class="helmet-actions">
+          <a href="{% url 'helmet-update' helmet.id %}" class="edit-btn">Edit</a>
+          <a href="{% url 'helmet-delete' helmet.id %}" class="delete-btn">Delete</a>
         </div>
-      </a>
+      </div>
     </div>
   {% empty %}
     <p class="helmet-empty-message">No helmets yet — add one!</p>

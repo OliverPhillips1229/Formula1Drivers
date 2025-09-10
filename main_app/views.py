@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Driver, Helmet
-from .forms import ResultForm
+from .forms import ResultForm, HelmetForm
 
 def home(request):
     return render(request, 'home.html')
@@ -47,7 +47,7 @@ class DriverDelete(DeleteView):
     
 class HelmetCreate(CreateView):
     model = Helmet
-    fields = '__all__'
+    form_class = HelmetForm
 
 class HelmetList(ListView):
     model = Helmet
@@ -57,7 +57,7 @@ class HelmetDetail(DetailView):
 
 class HelmetUpdate(UpdateView):
     model = Helmet
-    fields = ['name', 'color']
+    form_class = HelmetForm
 
 class HelmetDelete(DeleteView):
     model = Helmet
