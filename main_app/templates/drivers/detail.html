@@ -7,10 +7,52 @@
   <h2>Age {{ driver.age }} — <strong>{{ driver.current_team }}</strong></h2>
   <p><em>{{ driver.drive_years }}</em></p>
   <p>{{ driver.description }}</p>
+</div>
 
-  <div class="driver-actions">
-    <a href="{% url 'driver-update' driver.id %}" class="btn warn">Edit</a>
-    <a href="{% url 'driver-delete' driver.id %}" class="btn danger">Delete</a>
-  </div>
+<div class="results-container">
+  <section class="results">
+    <div class="subsection-title">
+      <h2>Results</h2>
+      <img src="{% static 'images/Helmet-icon.png' %}" alt="F1 helmet icon" />
+    </div>
+
+    <h3>Add a Result</h3>
+    <form
+      action="{% url 'add-result' driver.id %}"
+      method="post"
+      class="subsection-content"
+      autocomplete="off"
+    >
+      {% csrf_token %}
+      {{ result_form.as_p }}
+      <button type="submit" class="btn submit">Add Result</button>
+    </form>
+
+    <h3>Past Results</h3>
+    {% if driver.result_set.all.count %}
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Session</th>
+            <th>Position</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for result in driver.result_set.all %}
+            <tr>
+              <td>{{ result.date }}</td>
+              <td>{{ result.get_session_display }}</td>
+              <td>P{{ result.position }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="subsection-content">
+        <p>⚠️ {{ driver.name }} has no results yet.</p>
+      </div>
+    {% endif %}
+  </section>
 </div>
 {% endblock %}

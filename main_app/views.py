@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Driver
-
+from .forms import ResultForm
 
 def home(request):
     return render(request, 'home.html')
@@ -15,13 +15,26 @@ def driver_index(request):
 
 def driver_detail(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
-    return render(request, 'drivers/detail.html', {'driver': driver})
+    result_form = ResultForm()  # <-- for the "Add Result" form on the page
+    return render(request, 'drivers/detail.html', {
+        'driver': driver,
+        'result_form': result_form
+    })
 
-# --- CBVs for C/U/D ---
+def add_result(request, driver_id):
+    form = ResultForm(request.POST)
+    if form.is_valid():
+        new_result = form.save(commit=False)
+        new_result.driver_id = driver_id
+        new_result.save()
+    return redirect('driver-detail', driver_id=driver_id)
+
+# --- CBVs for C/U/D on Driver ---
 
 class DriverCreate(CreateView):
     model = Driver
     fields = '__all__'
+    # get_absolute_url on Driver will handle redirect after create, if defined
 
 class DriverUpdate(UpdateView):
     model = Driver
