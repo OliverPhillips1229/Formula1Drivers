@@ -6,6 +6,23 @@
 {% endblock %}
 
 {% block content %}
+{% if form.instance.pk and form.instance.helmets.exists %}
+  <section style="display:flex; flex-direction:column; align-items:center; margin-bottom:1.5em;">
+    <h3 style="margin-bottom:0.5em;">Owned Helmets</h3>
+    <div style="display:flex; gap:1em; flex-wrap:wrap; justify-content:center;">
+      {% for helmet in form.instance.helmets.all %}
+        <div style="text-align:center;">
+          {% if helmet.image %}
+            <img src="{{ helmet.image.url }}" alt="{{ helmet.name }}" style="max-width:80px; max-height:80px; margin-bottom:0.3em;" />
+          {% else %}
+            <img src="{% static 'images/Helmet-icon.png' %}" alt="No helmet image" style="max-width:80px; max-height:80px; margin-bottom:0.3em;" />
+          {% endif %}
+          <div style="font-size:0.95em;">{{ helmet.name }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
 <section class="form-section" style="display: flex; justify-content: center; align-items: flex-start; min-height: 60vh;">
   <div class="form-card" style="background: #fff; padding: 2rem 2.5rem; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.08); min-width: 350px; max-width: 420px; width: 100%;">
     <h1 style="margin-bottom: 1.5rem; text-align: center;">{% if form.instance.pk %}Edit Driver{% else %}Add Driver{% endif %}</h1>

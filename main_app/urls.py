@@ -5,9 +5,23 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
 
-
     path('drivers/', views.driver_index, name='driver-index'),
     path('drivers/<int:driver_id>/', views.driver_detail, name='driver-detail'),
+
+    path('drivers/<int:driver_id>/associate-helmet/<int:helmet_id>/',
+         views.associate_helmet, name='associate-helmet'),
+    path('drivers/<int:driver_id>/remove-helmet/<int:helmet_id>/',
+         views.remove_helmet, name='remove-helmet'),
+    path(
+    'drivers/<int:driver_id>/associate-helmet/<int:helmet_id>/',
+    views.associate_helmet,
+    name='associate-helmet'
+    ),
+    path(
+    'drivers/<int:driver_id>/remove-helmet/<int:helmet_id>/',
+    views.remove_helmet,
+    name='remove-helmet'
+    ),
 
     # Create/Update/Delete (CBVs)
     path('drivers/create/', views.DriverCreate.as_view(), name='driver-create'),

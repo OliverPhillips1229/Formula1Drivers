@@ -1,58 +1,56 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
-<div class="driver-details">
-  <h1>{{ driver.name }}</h1>
-  <h2>Age {{ driver.age }} — <strong>{{ driver.current_team }}</strong></h2>
-  <p><em>{{ driver.drive_years }}</em></p>
-  <p>{{ driver.description }}</p>
-</div>
-
-<div class="results-container">
-  <section class="results">
-    <div class="subsection-title">
-      <h2>Results</h2>
-      <img src="{% static 'images/Helmet-icon.png' %}" alt="F1 helmet icon" />
-    </div>
-
-    <h3>Add a Result</h3>
-    <form
-      action="{% url 'add-result' driver.id %}"
-      method="post"
-      class="subsection-content"
-      autocomplete="off"
-    >
-      {% csrf_token %}
-      {{ result_form.as_p }}
-      <button type="submit" class="btn submit">Add Result</button>
-    </form>
-
-    <h3>Past Results</h3>
-    {% if driver.result_set.all.count %}
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Session</th>
-            <th>Position</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for result in driver.result_set.all %}
-            <tr>
-              <td>{{ result.date }}</td>
-              <td>{{ result.get_session_display }}</td>
-              <td>P{{ result.position }}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    {% else %}
-      <div class="subsection-content">
-        <p>⚠️ {{ driver.name }} has no results yet.</p>
+<section class="driver-card" style="margin-bottom:2em;">
+  <div class="card" style="max-width:500px;">
+    <div class="card-content card-flex">
+      <div class="card-img-container">
+        {% if driver.helmets.first and driver.helmets.first.image %}
+          <img src="{{ driver.helmets.first.image.url }}" alt="{{ driver.helmets.first.name }}" style="max-width:100px; max-height:100px;" />
+        {% else %}
+          <img src="{% static 'images/Helmet-icon.png' %}" alt="No helmet image" style="max-width:100px;" />
+        {% endif %}
       </div>
-    {% endif %}
-  </section>
+      <div class="card-text">
+        <h2 class="card-title">{{ driver.name }}</h2>
+        <p>Age {{ driver.age }} — racing for <strong>{{ driver.current_team }}</strong></p>
+        <p><em>{{ driver.drive_years }}</em></p>
+        <p><small>{{ driver.description }}</small></p>
+        <div style="margin-top:1em;">
+          <a href="{% url 'driver-update' driver.id %}" class="btn" style="background:#e10600; color:#fff; padding:0.4em 1em; border-radius:6px; margin-right:0.5em; text-decoration:none;">Edit</a>
+          <a href="{% url 'driver-delete' driver.id %}" class="btn" style="background:#6c3483; color:#fff; padding:0.4em 1em; border-radius:6px; text-decoration:none;">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="helmets">
+  <div class="subsection-title">
+    <h2>Helmets</h2>
+  </div>
+
+<!-- Driver's helmets -->
+<h3>{{ driver.name }}{% if driver.name|slice:'-1' == 's' %}'{% else %}'s{% endif %} Helmets</h3>
+<div class="subsection-content">
+  {% if driver.helmets.all %}
+    {% for helmet in driver.helmets.all %}
+      <div class="item">
+        <span class="swatch" style="background: {{ helmet.color }}"></span>
+        <a href="{% url 'helmet-detail' helmet.id %}">
+          {{ helmet.color }} {{ helmet.name }}
+        </a>
+        {% if helmet.image %}
+          <img src="{{ helmet.image.url }}" alt="{{ helmet.name }}" style="max-width:120px; max-height:120px; display:block; margin:10px 0;" />
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>{{ driver.name }} has no helmets yet.</p>
+  {% endif %}
 </div>
+
+<!-- Available helmets -->
+<!-- Helmet management is only available when editing the driver. -->
+</div>
+</section>
 {% endblock %}
