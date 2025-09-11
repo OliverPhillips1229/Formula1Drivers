@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Driver, Helmet
+from .models import Driver, Helmet, Result
 from .forms import ResultForm, HelmetForm, DriverForm
+from django.forms import inlineformset_factory
 
 def home(request):
     return render(request, 'home.html')
@@ -48,11 +49,46 @@ def remove_helmet(request, driver_id, helmet_id):
 class DriverCreate(CreateView):
     model = Driver
     form_class = DriverForm
-    # get_absolute_url on Driver will handle redirect after create, if defined
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        ResultFormSet = inlineformset_factory(Driver, Result, form=ResultForm, extra=1, can_delete=True)
+        if self.request.POST:
+            context['result_formset'] = ResultFormSet(self.request.POST)
+        else:
+            context['result_formset'] = ResultFormSet()
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        result_formset = context['result_formset']
+        self.object = form.save()
+        if result_formset.is_valid():
+            result_formset.instance = self.object
+            result_formset.save()
+        return super().form_valid(form)
 
 class DriverUpdate(UpdateView):
     model = Driver
     form_class = DriverForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        ResultFormSet = inlineformset_factory(Driver, Result, form=ResultForm, extra=1, can_delete=True)
+        if self.request.POST:
+            context['result_formset'] = ResultFormSet(self.request.POST, instance=self.object)
+        else:
+            context['result_formset'] = ResultFormSet(instance=self.object)
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        result_formset = context['result_formset']
+        self.object = form.save()
+        if result_formset.is_valid():
+            result_formset.instance = self.object
+            result_formset.save()
+        return super().form_valid(form)
 
 class DriverDelete(DeleteView):
     model = Driver

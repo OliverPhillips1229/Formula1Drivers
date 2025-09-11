@@ -23,7 +23,7 @@ class HelmetForm(forms.ModelForm):
 class ResultForm(forms.ModelForm):
     class Meta:
         model = Result
-        fields = ['date', 'session', 'position']
+        fields = ['date', 'session', 'position', 'track']
         widgets = {
             'date': forms.DateInput(
                 format=('%Y-%m-%d'),

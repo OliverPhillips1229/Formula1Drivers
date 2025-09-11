@@ -33,6 +33,15 @@ class Driver(models.Model):
         return reverse('driver-detail', kwargs={'driver_id': self.id})
 
 
+
+class Track(models.Model):
+    name = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    length_km = models.DecimalField(max_digits=5, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.name} ({self.country})"
+
 class Result(models.Model):
     date = models.DateField('Race date')
     session = models.CharField(
@@ -42,6 +51,7 @@ class Result(models.Model):
     )
     position = models.IntegerField()
     driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
+    track = models.ForeignKey(Track, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.get_session_display()} • P{self.position} on {self.date}"

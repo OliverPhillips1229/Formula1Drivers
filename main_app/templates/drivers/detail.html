@@ -49,6 +49,26 @@
   {% endif %}
 </div>
 
+<!-- Results section -->
+<section class="results">
+  <div class="subsection-title">
+    <h2>Race Results</h2>
+  </div>
+  <div class="subsection-content">
+    {% if driver.result_set.all %}
+      <ul style="padding-left: 1.2em;">
+        {% for result in driver.result_set.all %}
+          <li>
+            <strong>{{ result.get_session_display }}</strong> — P{{ result.position }} on {{ result.date }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No results yet.</p>
+    {% endif %}
+  </div>
+</section>
+
 <!-- Available helmets -->
 <!-- Helmet management is only available when editing the driver. -->
 </div>

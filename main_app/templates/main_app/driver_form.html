@@ -29,6 +29,46 @@
     <form method="post" style="display: flex; flex-direction: column; gap: 1.2rem;">
       {% csrf_token %}
       {{ form.as_p }}
+        <hr style="margin: 2rem 0 1rem 0;">
+        <h2 style="margin-bottom: 1rem;">Race Results</h2>
+        {% if result_formset %}
+          <div id="results-formset">
+            {{ result_formset.management_form }}
+            {% for form in result_formset %}
+              <div class="result-form" style="margin-bottom: 2rem; padding: 1.5rem 1.5rem; border: 1px solid #e0e0e0; border-radius: 12px; background: #f7f7fc; box-shadow: 0 2px 8px rgba(0,0,0,0.03); max-width: 500px;">
+                <div style="display: flex; flex-direction: column; gap: 1.1rem;">
+                  <div>
+                    <label style="font-weight: 600; margin-bottom: 0.3rem; display: block;">Race date</label>
+                    {{ form.date }}
+                  </div>
+                  <div>
+                    <label style="font-weight: 600; margin-bottom: 0.3rem; display: block;">Session</label>
+                    {{ form.session }}
+                  </div>
+                  <div>
+                    <label style="font-weight: 600; margin-bottom: 0.3rem; display: block;">Position</label>
+                    {{ form.position }}
+                  </div>
+                  <div>
+                    <label style="font-weight: 600; margin-bottom: 0.3rem; display: block;">Track</label>
+                    {{ form.track }}
+                  </div>
+<style>
+  select[name$='track'] {
+    max-width: 350px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+</style>
+                  <div style="margin-top: 0.5rem;">
+                    <label style="font-weight: 400; font-size: 0.95em; color: #888;">Delete</label>
+                    {{ form.DELETE }}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
       <div style="display: flex; gap: 1rem; justify-content: flex-start; align-items: center; margin-top: 1rem;">
         <button type="submit" class="btn" style="background: #e10600; color: #fff; border: none; padding: 0.6rem 1.4rem; border-radius: 6px; font-weight: 600; cursor: pointer;">Save</button>
         <a href="{% url 'driver-index' %}" class="btn btn-secondary" style="color: #6c3483; text-decoration: underline; background: none; border: none; padding: 0.6rem 1.4rem; border-radius: 6px; font-weight: 600; cursor: pointer;">Cancel</a>
