@@ -118,6 +118,10 @@ class HelmetUpdate(UpdateView):
     model = Helmet
     form_class = HelmetForm
 
+    def get_success_url(self):
+        from django.urls import reverse
+        return reverse('helmet-detail', kwargs={'pk': self.object.pk})
+
 class HelmetDelete(DeleteView):
     model = Helmet
     success_url = '/helmets/'
