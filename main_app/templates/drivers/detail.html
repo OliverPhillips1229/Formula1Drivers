@@ -52,17 +52,27 @@
 <!-- Results section -->
 <section class="results">
   <div class="subsection-title">
-    <h2>Race Results</h2>
+    <h2>All Results</h2>
   </div>
   <div class="subsection-content">
     {% if driver.result_set.all %}
-      <ul style="padding-left: 1.2em;">
-        {% for result in driver.result_set.all %}
-          <li>
-            <strong>{{ result.get_session_display }}</strong> — P{{ result.position }} on {{ result.date }}
-          </li>
-        {% endfor %}
-      </ul>
+  {% for session_code, session_name in session_choices %}
+        <h3 style="margin-top:1.5em;">{{ session_name }} Results</h3>
+        {% with results=driver.result_set.all|dictsort:"date" %}
+        <ul style="padding-left: 1.2em;">
+          {% for result in results %}
+            {% if result.session == session_code %}
+              <li style="margin-bottom:1em;">
+                <strong>Date:</strong> {{ result.date }}<br>
+                <strong>Session:</strong> {{ result.get_session_display }}<br>
+                <strong>Position:</strong> P{{ result.position }}<br>
+                <strong>Track:</strong> {{ result.track.name }} ({{ result.track.country }}, {{ result.track.length_km }} km)
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+        {% endwith %}
+      {% endfor %}
     {% else %}
       <p>No results yet.</p>
     {% endif %}

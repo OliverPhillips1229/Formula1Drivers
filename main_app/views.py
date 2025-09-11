@@ -20,9 +20,15 @@ def driver_detail(request, driver_id):
     available_helmets = Helmet.objects.exclude(
         id__in=driver.helmets.all().values_list('id', flat=True)
     )
+    session_choices = [
+        ('Q', 'Qualifying'),
+        ('S', 'Sprint'),
+        ('R', 'Race'),
+    ]
     return render(request, 'drivers/detail.html', {
         'driver': driver,
-        'available_helmets': available_helmets
+        'available_helmets': available_helmets,
+        'session_choices': session_choices,
     })
 
 def add_result(request, driver_id):
@@ -62,11 +68,13 @@ class DriverCreate(CreateView):
     def form_valid(self, form):
         context = self.get_context_data()
         result_formset = context['result_formset']
-        self.object = form.save()
-        if result_formset.is_valid():
+        if form.is_valid() and result_formset.is_valid():
+            self.object = form.save()
             result_formset.instance = self.object
             result_formset.save()
-        return super().form_valid(form)
+            return super().form_valid(form)
+        else:
+            return self.form_invalid(form)
 
 class DriverUpdate(UpdateView):
     model = Driver
@@ -84,11 +92,13 @@ class DriverUpdate(UpdateView):
     def form_valid(self, form):
         context = self.get_context_data()
         result_formset = context['result_formset']
-        self.object = form.save()
-        if result_formset.is_valid():
+        if form.is_valid() and result_formset.is_valid():
+            self.object = form.save()
             result_formset.instance = self.object
             result_formset.save()
-        return super().form_valid(form)
+            return super().form_valid(form)
+        else:
+            return self.form_invalid(form)
 
 class DriverDelete(DeleteView):
     model = Driver
